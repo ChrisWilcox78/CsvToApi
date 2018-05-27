@@ -1,4 +1,5 @@
 from csv import DictReader
+
 from .repository import persist_entity
 from .entity import EntityMDoc
 

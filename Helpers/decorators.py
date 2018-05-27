@@ -4,7 +4,6 @@ from os import environ
 from bson.errors import InvalidId
 from mongoengine.queryset import DoesNotExist
 from werkzeug.exceptions import NotFound
-from threading import Thread
 
 
 DEFAULT_MONGO_HOST = "localhost"
@@ -49,17 +48,4 @@ def treat_none_as_404(fn):
         if rval is None:
             raise NotFound()
         return rval
-    return wrapper
-
-
-def run_in_thread(fn):
-    """
-    Runs the wrapper function in a background thread, allowing the caller to move on.
-    Useful for kicking off long-running processes.
-    """
-    @wraps(fn)
-    def wrapper(*args, **kwargs):
-        thread = Thread(target=fn, args=args, kwargs=kwargs)
-        thread.setDaemon = True
-        thread.start()
     return wrapper
